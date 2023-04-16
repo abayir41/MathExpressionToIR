@@ -12,7 +12,7 @@ bool splitFromAssignSign(const char line[], char outVariablePart[], char outExpr
 
 int main() {
     char line[256 +1] = "";
-    printf("> ");
+    printf(">23 ");
 
     //program lifecycle
     while (fgets(line, sizeof(line), stdin)){
