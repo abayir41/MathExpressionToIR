@@ -1,3 +1,0 @@
-C:/Users/samil/OneDrive/Belgeler/GitHub/MathExpressionToIR/cmake-build-debug/CMakeFiles/prj1.dir
-C:/Users/samil/OneDrive/Belgeler/GitHub/MathExpressionToIR/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/samil/OneDrive/Belgeler/GitHub/MathExpressionToIR/cmake-build-debug/CMakeFiles/rebuild_cache.dir
