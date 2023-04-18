@@ -10,12 +10,52 @@
 long long proccesTheExpression(const char expression[]);
 bool splitFromAssignSign(const char line[], char outVariablePart[], char outExpression[]);
 
-int main() {
+int main(int argc, char *argv[]) {
+
+    char* filenameOriginal = argv[1];
+    char fileNameCopy[strlen(filenameOriginal)];
+    char fileNameCopy2[strlen(filenameOriginal)];
+
+    strcpy(fileNameCopy, filenameOriginal);
+    strcpy(fileNameCopy2, filenameOriginal);
+
+
+    char* dot = strrchr(fileNameCopy, '.');
+    if(dot)
+        *dot = '\0';
+
+    int newFileNameLength = strlen(fileNameCopy) + 3;
+    char newFileName[newFileNameLength];
+    strcat(newFileName, fileNameCopy);
+    strcat(newFileName, ".ll");
+    newFileName[newFileNameLength] = '\0';
+
+    FILE *outputFilePtr;
+
+    outputFilePtr = fopen(newFileName, "w");
+
+    fprintf(outputFilePtr, "; ModuleID = 'advcalc2ir'");
+    fprintf(outputFilePtr, "\n");
+    fprintf(outputFilePtr, "declare i32 @printf(i8*, ...)");
+    fprintf(outputFilePtr, "\n");
+    fprintf(outputFilePtr, "@print.str = constant [4 x i8] c\"%%d\\0A\\00\"");
+    fprintf(outputFilePtr, "\n");
+    fprintf(outputFilePtr, "define i32 @main() {");
+    fprintf(outputFilePtr, "\n");
+
+
+    FILE* inputFilePtr;
+    inputFilePtr = fopen(fileNameCopy2, "r");
+    if (inputFilePtr == NULL) {
+        printf("Error opening file.\n");
+        return 1;
+    }
+
     char line[256 +1] = "";
-    printf("> ");
+
 
     //program lifecycle
-    while (fgets(line, sizeof(line), stdin)){
+    while (fgets(line, sizeof(line), inputFilePtr)) {
 
         //ctrl+d cacth
         if(line == NULL){
@@ -76,6 +116,8 @@ int main() {
 
     disposeVariables();
 
+    fclose(inputFilePtr);
+    fclose(outputFilePtr);
     return 0;
 }
 

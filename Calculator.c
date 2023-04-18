@@ -7,7 +7,6 @@
 //Pretty straightforward calculate function. Take root of tree and calculate it recursively. When find any number or variable return their values.
 long long calculate(const struct Node* startPoint){
 
-    /*
     if (startPoint->Type == BitAnd)
     {
         long long left = calculate(startPoint->Left);
@@ -112,5 +111,5 @@ long long calculate(const struct Node* startPoint){
     {
         return getVariableValue(startPoint->VariableName);
     }
-    */
+
 }

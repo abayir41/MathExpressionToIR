@@ -12,7 +12,7 @@ void disposeVariables(){
 long long getVariableValue(const char* name)
 {
 
-    /*
+
     //if it is not initialized, then initialize
     if(variableCount == 0)
     {
@@ -36,12 +36,12 @@ long long getVariableValue(const char* name)
     variables[variableCount - 1].value = 0;
     strcpy(variables[variableCount - 1].variableName, name);
     return 0;
-     */
+
 }
 
 void setVariableValue(const char* name, long long value)
 {
-    /*
+
     //if it is not initialized, then initialize
     if(variableCount == 0)
     {
@@ -68,5 +68,5 @@ void setVariableValue(const char* name, long long value)
     variables[variableCount - 1].value = value;
     strcpy(variables[variableCount - 1].variableName, name);
     return;
-     */
+
 }
