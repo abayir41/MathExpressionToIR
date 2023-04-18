@@ -15,7 +15,8 @@ typedef enum {
     RightParenthesis = 9,
     Number = 10,
     TwoParameterFunction = 11,
-    OneParameterFunction = 12
+    OneParameterFunction = 12,
+    Modulo = 13
 } TokenType;
 
 //It will help the creating Node struct instances.

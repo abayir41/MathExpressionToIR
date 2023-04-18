@@ -14,9 +14,6 @@ void GetLexemes(const char line[], Token outTokenArray[], int* outSize){
     {
         char currentChar = line[position];
 
-        if(currentChar == '%')
-            break;
-
         if(currentChar == ' ')
         {
             position++;
@@ -47,6 +44,16 @@ void GetLexemes(const char line[], Token outTokenArray[], int* outSize){
         {
             outTokenArray[*outSize].type = Plus;
             outTokenArray[*outSize].value[0] = '+';
+            outTokenArray[*outSize].value[1] = '\0';
+            position++;
+            *outSize += 1;
+            continue;
+        }
+
+        if(currentChar == '%')
+        {
+            outTokenArray[*outSize].type = Modulo;
+            outTokenArray[*outSize].value[0] = '%';
             outTokenArray[*outSize].value[1] = '\0';
             position++;
             *outSize += 1;

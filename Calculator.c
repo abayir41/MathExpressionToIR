@@ -48,6 +48,14 @@ long long calculate(const struct Node* startPoint){
         return left * right;
     }
 
+    if (startPoint->Type == Modulo)
+    {
+        long long left = calculate(startPoint->Left);
+        long long right = calculate(startPoint->Right);
+
+        return left % right;
+    }
+
     if (startPoint->Type == Divide)
     {
         long long left = calculate(startPoint->Left);
