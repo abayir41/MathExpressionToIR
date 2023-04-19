@@ -1,0 +1,6 @@
+#ifndef PRJ1_PROCESSCOUNTER_H
+#define PRJ1_PROCESSCOUNTER_H
+
+int getProcessCount();
+
+#endif //PRJ1_PROCESSCOUNTER_H

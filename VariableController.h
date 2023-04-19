@@ -1,11 +1,12 @@
 #ifndef PRJ1_VARIABLECONTROLLER_H
 #define PRJ1_VARIABLECONTROLLER_H
+#include <stdbool.h>
 
 //Sets variable
-void setVariableValue(const char* name, long long value);
+void setVariableValue(const char* name, const char* value);
 
 //Gets variable
-long long getVariableValue(const char* name);
+bool checkIfVariableExist(const char* name);
 
 //Disposed Saved Variables
 void disposeVariables();

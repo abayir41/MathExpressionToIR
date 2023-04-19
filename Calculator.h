@@ -4,6 +4,6 @@
 #include "Structures.h"
 
 //Calculates parse tree, then return the value.
-long long calculate(const struct Node* startPoint);
+char* calculate(const struct Node* startPoint);
 
 #endif //PRJ1_CALCULATOR_H

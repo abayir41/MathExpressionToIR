@@ -46,8 +46,8 @@ struct Node {
 
 //It will keep the variable data and name.
 struct VariableStruct{
-    char variableName[256];
-    long long value;
+    char variableName[256];  //"x"
+    long long value; //5
 };
 
 #endif //PRJ1_STRUCTURES_H
