@@ -7,6 +7,7 @@
 #include "VariableController.h"
 #include "Calculator.h"
 #include "ProcessCounter.h"
+
 char* proccesTheExpression(const char expression[]);
 bool splitFromAssignSign(const char line[], char outVariablePart[], char outExpression[]);
 
@@ -84,6 +85,9 @@ int main(int argc, char *argv[]) {
             fprintf(outputFilePtr, " )");
             fprintf(outputFilePtr, "\n");
             getProcessCount();
+
+            free(value);
+
         }
         else
         {
