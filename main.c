@@ -7,7 +7,7 @@
 #include "VariableController.h"
 #include "Calculator.h"
 
-long long proccesTheExpression(const char expression[]);
+char* proccesTheExpression(const char expression[]);
 bool splitFromAssignSign(const char line[], char outVariablePart[], char outExpression[]);
 
 FILE *outputFilePtr;
@@ -53,7 +53,7 @@ int main(int argc, char *argv[]) {
     }
 
     char line[256 +1] = "";
-
+    int currentLineNumber = 1;
 
     //program lifecycle
     while (fgets(line, sizeof(line), inputFilePtr)) {
@@ -69,20 +69,19 @@ int main(int argc, char *argv[]) {
         //if there is not a '='
         if(strchr(line, '=') == NULL)
         {
-            long long value = proccesTheExpression(line);
+            char* value = proccesTheExpression(line);
 
             //check
             if(anyErrorOccurred())
             {
-                printf("Error!");
+                printf("Error on line %d!", currentLineNumber);
                 printf("\n");
-                printf("> ");
                 continue;
             }
 
-            printf("%lld", value);
-            printf("\n");
-            printf("> ");
+            fprintf(outputFilePtr,"call i32 (i8*, ...) @printf(i8* getelementptr ([4 x i8], [4 x i8]* @print.str, i32 0, i32 0), i32 ");
+            fprintf(outputFilePtr, value);
+            fprintf(outputFilePtr, " )");
         }
         else
         {
@@ -92,27 +91,24 @@ int main(int argc, char *argv[]) {
             //Split from equal sign, if there is a error it will return false
             if(!splitFromAssignSign(line, variablePart, expression))
             {
-                printf("Error!");
-                printf("\n");
-                printf("> ");
+                printf("Error on line %d!", currentLineNumber);
                 continue;
             }
 
-            long long value = proccesTheExpression(expression);
+            char* value = proccesTheExpression(expression);
 
             //check
             if(anyErrorOccurred())
             {
-                printf("Error!");
-                printf("\n");
-                printf("> ");
+                printf("Error on line %d!", currentLineNumber);
                 continue;
             }
 
             //setting variable
             setVariableValue(variablePart, value);
-            printf("> ");
         }
+
+        currentLineNumber++;
     }
 
     disposeVariables();
@@ -124,7 +120,7 @@ int main(int argc, char *argv[]) {
     return 0;
 }
 
-long long proccesTheExpression(const char expression[])
+char* proccesTheExpression(const char expression[])
 {
     //creating lexemes
     Token tokens[256];
@@ -143,7 +139,7 @@ long long proccesTheExpression(const char expression[])
     }
 
     //calculate parse tree
-    long long result = calculate(root);
+    char* result = calculate(root);
 
     //remove mallocs
     DisposeParser(root);
