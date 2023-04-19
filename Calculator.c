@@ -11,9 +11,12 @@ void writeToFile(char line[]);
 
 
 char* getVarProcessName(){
-    char result[257] = "%";
+    char* result = (char*) calloc(257 , sizeof(char));
+    result[0] = '%';
+    result[1] = '%';
     char snum[256];
     itoa(getProcessCount(),snum,10);
+
     strcat(result,snum);
     return result;
 }
@@ -167,8 +170,9 @@ char* calculate(const struct Node* startPoint){
         writeToFile(result);
         writeToFile(" = ");
         writeToFile("load i32, i32*");
-        writeToFile(" %");
+        writeToFile(" %%");
         writeToFile(startPoint->VariableName);
+        writeToFile("\n");
 
         return result;
     }

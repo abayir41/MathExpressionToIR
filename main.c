@@ -6,7 +6,7 @@
 #include "Parser.h"
 #include "VariableController.h"
 #include "Calculator.h"
-
+#include "ProcessCounter.h"
 char* proccesTheExpression(const char expression[]);
 bool splitFromAssignSign(const char line[], char outVariablePart[], char outExpression[]);
 
@@ -82,6 +82,8 @@ int main(int argc, char *argv[]) {
             fprintf(outputFilePtr,"call i32 (i8*, ...) @printf(i8* getelementptr ([4 x i8], [4 x i8]* @print.str, i32 0, i32 0), i32 ");
             fprintf(outputFilePtr, value);
             fprintf(outputFilePtr, " )");
+            fprintf(outputFilePtr, "\n");
+            getProcessCount();
         }
         else
         {
@@ -112,10 +114,13 @@ int main(int argc, char *argv[]) {
     }
 
     disposeVariables();
+    fprintf(outputFilePtr, "ret i32 0\n");
+
     fprintf(outputFilePtr, "}");
 
     fclose(inputFilePtr);
     fclose(outputFilePtr);
+
 
     return 0;
 }
