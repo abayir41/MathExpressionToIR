@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
+#include <stdlib.h>
 #include "Structures.h"
 #include "Lexer.h"
 #include "Parser.h"
@@ -14,7 +15,7 @@ bool splitFromAssignSign(const char line[], char outVariablePart[], char outExpr
 FILE *outputFilePtr;
 int main(int argc, char *argv[]) {
 
-    char* filenameOriginal = "D:\\da.txt";
+    char* filenameOriginal = "..\\da.txt";
     char fileNameCopy[strlen(filenameOriginal)];
     char fileNameCopy2[strlen(filenameOriginal)];
 
@@ -86,7 +87,7 @@ int main(int argc, char *argv[]) {
             fprintf(outputFilePtr, "\n");
             getProcessCount();
 
-            free(value);
+            //free(value);
 
         }
         else
