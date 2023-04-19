@@ -3,113 +3,233 @@
 #include <string.h>
 #include "Structures.h"
 #include "VariableController.h"
-
+void writeToFile(char line[] );
+int getProcessCount();
+char* getVarProcessName(){
+    char result[257] = "%";
+    char snum[256];
+    itoa(getProcessCount(),snum,10);
+    strcat(result,snum);
+    return result;
+}
 //Pretty straightforward calculate function. Take root of tree and calculate it recursively. When find any number or variable return their values.
-long long calculate(const struct Node* startPoint){
+char* calculate(const struct Node* startPoint){
 
     if (startPoint->Type == BitAnd)
     {
-        long long left = calculate(startPoint->Left);
-        long long right = calculate(startPoint->Right);
+        char* left = calculate(startPoint->Left);
+        char* right = calculate(startPoint->Right);
+        char* result = getVarProcessName();
+        writeToFile(result);
+        writeToFile(" = ");
+        writeToFile("and i32 ");
+        writeToFile(left);
+        writeToFile(",");
+        writeToFile(right);
+        writeToFile("\n");
 
-        return left & right;
+        return result;
     }
 
     if (startPoint->Type == BitOr)
     {
-        long long left = calculate(startPoint->Left);
-        long long right = calculate(startPoint->Right);
+        char* left = calculate(startPoint->Left);
+        char* right = calculate(startPoint->Right);
+        char* result = getVarProcessName();
+        writeToFile(result);
+        writeToFile(" = ");
+        writeToFile("or i32 ");
+        writeToFile(left);
+        writeToFile(",");
+        writeToFile(right);
+        writeToFile("\n");
 
-        return left | right;
+        return result;
     }
 
     if (startPoint->Type == Plus)
     {
-        long long left = calculate(startPoint->Left);
-        long long right = calculate(startPoint->Right);
+        char* left = calculate(startPoint->Left);
+        char* right = calculate(startPoint->Right);
+        char* result = getVarProcessName();
+        writeToFile(result);
+        writeToFile(" = ");
+        writeToFile("add i32 ");
+        writeToFile(left);
+        writeToFile(",");
+        writeToFile(right);
+        writeToFile("\n");
 
-        return left + right;
+        return result;
     }
 
     if (startPoint->Type == Minus)
     {
-        long long left = calculate(startPoint->Left);
-        long long right = calculate(startPoint->Right);
+        char* left = calculate(startPoint->Left);
+        char* right = calculate(startPoint->Right);
+        char* result = getVarProcessName();
+        writeToFile(result);
+        writeToFile(" = ");
+        writeToFile("sub i32 ");
+        writeToFile(left);
+        writeToFile(",");
+        writeToFile(right);
+        writeToFile("\n");
 
-        return left - right;
+        return result;
     }
 
     if (startPoint->Type == Multiply)
     {
-        long long left = calculate(startPoint->Left);
-        long long right = calculate(startPoint->Right);
+        char* left = calculate(startPoint->Left);
+        char* right = calculate(startPoint->Right);
+        char* result = getVarProcessName();
+        writeToFile(result);
+        writeToFile(" = ");
+        writeToFile("mul i32 ");
+        writeToFile(left);
+        writeToFile(",");
+        writeToFile(right);
+        writeToFile("\n");
 
-        return left * right;
+        return result;
     }
 
     if (startPoint->Type == Modulo)
     {
-        long long left = calculate(startPoint->Left);
-        long long right = calculate(startPoint->Right);
+        char* left = calculate(startPoint->Left);
+        char* right = calculate(startPoint->Right);
+        char* result = getVarProcessName();
+        writeToFile(result);
+        writeToFile(" = ");
+        writeToFile("srem i32 ");
+        writeToFile(left);
+        writeToFile(",");
+        writeToFile(right);
+        writeToFile("\n");
 
-        return left % right;
+        return result;
     }
 
     if (startPoint->Type == Divide)
     {
-        long long left = calculate(startPoint->Left);
-        long long right = calculate(startPoint->Right);
+        char* left = calculate(startPoint->Left);
+        char* right = calculate(startPoint->Right);
+        char* result = getVarProcessName();
+        writeToFile(result);
+        writeToFile(" = ");
+        writeToFile("sdiv i32 ");
+        writeToFile(left);
+        writeToFile(",");
+        writeToFile(right);
+        writeToFile("\n");
 
-        return left / right;
+        return result;
     }
 
     if (startPoint->Type == TwoParameterFunction)
     {
-        long long left = calculate(startPoint->Left);
-        long long right = calculate(startPoint->Right);
+        char* left = calculate(startPoint->Left);
+        char* right = calculate(startPoint->Right);
 
         if(strcmp(startPoint->FuncName, "xor") == 0)
         {
-            return left ^ right;
+
+            char* result = getVarProcessName();
+            writeToFile(result);
+            writeToFile(" = ");
+            writeToFile("xor i32 ");
+            writeToFile(left);
+            writeToFile(",");
+            writeToFile(right);
+            writeToFile("\n");
+
+            return result;
         }
 
         if(strcmp(startPoint->FuncName, "ls") == 0)
         {
-            return left << right;
+            char* result = getVarProcessName();
+            writeToFile(result);
+            writeToFile(" = ");
+            writeToFile("shl i32 ");
+            writeToFile(left);
+            writeToFile(",");
+            writeToFile(right);
+            writeToFile("\n");
+
+            return result;
         }
 
         if(strcmp(startPoint->FuncName, "rs") == 0)
         {
-            return left >> right;
+            char* result = getVarProcessName();
+            writeToFile(result);
+            writeToFile(" = ");
+            writeToFile("lshr i32 ");
+            writeToFile(left);
+            writeToFile(",");
+            writeToFile(right);
+            writeToFile("\n");
+
+            return result;
         }
 
         if(strcmp(startPoint->FuncName, "lr") == 0)
         {
-            return (left << right) | (left >> (64 - right));
+            char* result = getVarProcessName();
+            writeToFile(result);
+            writeToFile(" = ");
+            writeToFile("fshl i32 ");
+            writeToFile(left);
+            writeToFile(",");
+            writeToFile(right);
+            writeToFile("\n");
+
+            return result;
         }
 
         if(strcmp(startPoint->FuncName, "rr") == 0)
         {
-            return (left >> right) | (left << (64 - right));
+            char* result = getVarProcessName();
+            writeToFile(result);
+            writeToFile(" = ");
+            writeToFile("fshr i32 ");
+            writeToFile(left);
+            writeToFile(",");
+            writeToFile(right);
+            writeToFile("\n");
+
+            return result;
         }
 
-        return -1;
+        return "error";
     }
 
     if (startPoint->Type == OneParameterFunction)
     {
-        long long child = calculate(startPoint->SingleChild);
-        return ~child;
+        //long long child = calculate(startPoint->SingleChild);
+
+
+        return "to be continued";
     }
 
     if(startPoint->Type == Number)
     {
-        return strtoll(startPoint->Number, NULL,10);
+        return startPoint->Number;
     }
 
     if(startPoint->Type == Variable)
     {
-        return getVariableValue(startPoint->VariableName);
+        char* result = getVarProcessName();
+        writeToFile(result);
+        writeToFile(" = ");
+        writeToFile("load i32, i32*");
+        writeToFile(" %");
+        writeToFile(startPoint->VariableName);
+
+        return result;
+
     }
 
 }

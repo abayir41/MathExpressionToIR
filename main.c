@@ -10,9 +10,10 @@
 long long proccesTheExpression(const char expression[]);
 bool splitFromAssignSign(const char line[], char outVariablePart[], char outExpression[]);
 
+FILE *outputFilePtr;
 int main(int argc, char *argv[]) {
 
-    char* filenameOriginal = argv[1];
+    char* filenameOriginal = "D:\\da.txt";
     char fileNameCopy[strlen(filenameOriginal)];
     char fileNameCopy2[strlen(filenameOriginal)];
 
@@ -30,7 +31,7 @@ int main(int argc, char *argv[]) {
     strcat(newFileName, ".ll");
     newFileName[newFileNameLength] = '\0';
 
-    FILE *outputFilePtr;
+
 
     outputFilePtr = fopen(newFileName, "w");
 
@@ -115,9 +116,11 @@ int main(int argc, char *argv[]) {
     }
 
     disposeVariables();
+    fprintf(outputFilePtr, "}");
 
     fclose(inputFilePtr);
     fclose(outputFilePtr);
+
     return 0;
 }
 
@@ -187,4 +190,7 @@ bool splitFromAssignSign(const char line[], char outVariablePart[], char outExpr
     outExpression[creator] = '\0';
 
     return true;
+}
+void writeToFile(char line[] ){
+    fprintf(outputFilePtr, line);
 }
