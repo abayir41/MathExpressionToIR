@@ -240,7 +240,7 @@ char* calculate(const struct Node* startPoint){
             writeAProcessToFile(assignedVariableName, "shl", left, right);
 
             char* assignedVariableName2 = getVarProcessName();
-            writeAProcessToFile(assignedVariableName2, "sub", "64", right);
+            writeAProcessToFile(assignedVariableName2, "sub", "32", right);
 
             char* assignedVariableName3 = getVarProcessName();
             writeAProcessToFile(assignedVariableName3, "ashr", left, assignedVariableName2);
@@ -263,7 +263,7 @@ char* calculate(const struct Node* startPoint){
             writeAProcessToFile(assignedVariableName, "ashr", left, right);
 
             char* assignedVariableName2 = getVarProcessName();
-            writeAProcessToFile(assignedVariableName2, "sub", "64", right);
+            writeAProcessToFile(assignedVariableName2, "sub", "32", right);
 
             char* assignedVariableName3 = getVarProcessName();
             writeAProcessToFile(assignedVariableName3, "shl", left, assignedVariableName2);
