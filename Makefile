@@ -12,4 +12,4 @@ advcalc2ir: $(OBJS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJS) advcalc
+	rm -f $(OBJS) advcalc2ir

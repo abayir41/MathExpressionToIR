@@ -25,3 +25,5 @@ cmake-build-debug/.cmake/api/v1/reply/index-2023-03-27T17-25-32-0476.json
 cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-df74949b63cc80cb3f80.json
 cmake-build-debug/.cmake/api/v1/reply/cmakeFiles-v1-b3fcae9599c447f07352.json
 cmake-build-debug/.cmake/api/v1/reply/cache-v2-7343d8eea52bb3320794.json
+
+CMakeLists.txt
