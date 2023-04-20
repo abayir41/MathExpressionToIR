@@ -5,7 +5,7 @@
 //Sets variable
 void setVariableValue(const char* name, const char* value);
 
-//Gets variable
+//Checks if variable created
 bool checkIfVariableExist(const char* name);
 
 //Disposed Saved Variables

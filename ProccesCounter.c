@@ -9,7 +9,6 @@ int getProcessCount(){
     return processCount;
 }
 
-//it will return like %1, %2 ... like in the homework example
 char* getVarProcessName(){
     char* result = (char*) calloc(257 , sizeof(char));
     result[0] = '%';
