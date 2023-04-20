@@ -58,13 +58,11 @@ void setVariableValue(const char* name, const char* value)
 
     writeAllocation(name);
     writeStore(name, value);
-
-    return;
 }
 
 void writeAllocation(const char* variableName)
 {
-    writeToFile("%%");
+    writeToFile("%");
     writeToFile(variableName);
     writeToFile(" = alloca i32");
     writeToFile("\n");
@@ -75,7 +73,7 @@ void writeStore(const char* variableName,const char* value)
     writeToFile("store i32 ");
     writeToFile(value);
     writeToFile(", i32* ");
-    writeToFile("%%");
+    writeToFile("%");
     writeToFile(variableName);
     writeToFile("\n");
 }

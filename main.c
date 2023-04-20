@@ -10,30 +10,29 @@
 #include "ProcessCounter.h"
 
 char* proccesTheExpression(const char expression[]);
+
 bool splitFromAssignSign(const char line[], char outVariablePart[], char outExpression[]);
 
+void fetchFileNameWithoutExtension(char* dest, const char* source);
+
+void createNewFileName(char* dest, const char* source);
+
+//File that our output
 FILE *outputFilePtr;
+
 int main(int argc, char *argv[]) {
 
     char* filenameOriginal = argv[1];
-    char fileNameCopy[strlen(filenameOriginal)];
-    char fileNameCopy2[strlen(filenameOriginal)];
 
-    strcpy(fileNameCopy, filenameOriginal);
-    strcpy(fileNameCopy2, filenameOriginal);
+    //If there is a extension it will be removed. Ex: file.txt -> file
+    char fileNameWithoutExtension[strlen(filenameOriginal) + 10];
+    fileNameWithoutExtension[0] = '\0';
+    fetchFileNameWithoutExtension(fileNameWithoutExtension, filenameOriginal);
 
-
-    char* dot = strrchr(fileNameCopy, '.');
-    if(dot)
-        *dot = '\0';
-
-    int newFileNameLength = strlen(fileNameCopy) + 3;
-    char newFileName[newFileNameLength];
-    strcat(newFileName, fileNameCopy);
-    strcat(newFileName, ".ll");
-    newFileName[newFileNameLength] = '\0';
-
-
+    //.ll extension added. Ex: file -> file.ll
+    char newFileName[strlen(fileNameWithoutExtension) + 10];
+    newFileName[0] = '\0';
+    createNewFileName(newFileName, fileNameWithoutExtension);
 
     outputFilePtr = fopen(newFileName, "w");
 
@@ -47,21 +46,19 @@ int main(int argc, char *argv[]) {
     fprintf(outputFilePtr, "define i32 @main() {");
     fprintf(outputFilePtr, "\n");
 
-
     FILE* inputFilePtr;
-    inputFilePtr = fopen(fileNameCopy2, "r");
+    inputFilePtr = fopen(filenameOriginal, "r");
     if (inputFilePtr == NULL) {
         printf("Error opening file.\n");
         return 1;
     }
 
     char line[256 +1] = "";
-    int currentLineNumber = 1;
+    int currentLineNumberCounter = 1;
 
     //program lifecycle
     while (fgets(line, sizeof(line), inputFilePtr)) {
 
-        //ctrl+d cacth
         if(line == NULL){
             break;
         }
@@ -74,29 +71,29 @@ int main(int argc, char *argv[]) {
         {
             char* value = proccesTheExpression(line);
 
-            //check
+            //check if parse tree worked without error
             if(anyErrorOccurred())
             {
-                printf("Error on line %d!", currentLineNumber);
+                printf("Error on line %d!", currentLineNumberCounter);
                 printf("\n");
                 break;
             }
 
+            //"=" is a error sign from calculator
             if(value[0] == '=')
             {
-                printf("Error on line %d!", currentLineNumber);
+                printf("Error on line %d!", currentLineNumberCounter);
                 printf("\n");
                 break;
             }
 
             fprintf(outputFilePtr,"call i32 (i8*, ...) @printf(i8* getelementptr ([4 x i8], [4 x i8]* @print.str, i32 0, i32 0), i32 ");
-            fprintf(outputFilePtr, value);
+            fprintf(outputFilePtr, "%s", value);
             fprintf(outputFilePtr, " )");
             fprintf(outputFilePtr, "\n");
             getProcessCount();
 
             free(value);
-
         }
         else
         {
@@ -106,22 +103,23 @@ int main(int argc, char *argv[]) {
             //Split from equal sign, if there is a error it will return false
             if(!splitFromAssignSign(line, variablePart, expression))
             {
-                printf("Error on line %d!", currentLineNumber);
+                printf("Error on line %d!", currentLineNumberCounter);
                 continue;
             }
 
             char* value = proccesTheExpression(expression);
 
-            //check
+            //check if parse tree worked without error
             if(anyErrorOccurred())
             {
-                printf("Error on line %d!", currentLineNumber);
+                printf("Error on line %d!", currentLineNumberCounter);
                 continue;
             }
 
+            //"=" is a error sign from calculator
             if(value[0] == '=')
             {
-                printf("Error on line %d!", currentLineNumber);
+                printf("Error on line %d!", currentLineNumberCounter);
                 printf("\n");
                 break;
             }
@@ -130,7 +128,7 @@ int main(int argc, char *argv[]) {
             setVariableValue(variablePart, value);
         }
 
-        currentLineNumber++;
+        currentLineNumberCounter++;
     }
 
     disposeVariables();
@@ -211,6 +209,24 @@ bool splitFromAssignSign(const char line[], char outVariablePart[], char outExpr
 
     return true;
 }
-void writeToFile(char line[] ){
-    fprintf(outputFilePtr, line);
+
+void writeToFile(const char line[] )
+{
+    fprintf(outputFilePtr,"%s", line);
+}
+
+void fetchFileNameWithoutExtension(char* dest, const char* source)
+{
+    strcpy(dest, source);
+
+    char* dot = strrchr(dest, '.');
+    if(dot)
+        *dot = '\0';
+}
+
+void createNewFileName(char* dest, const char* source)
+{
+    strcat(dest, source);
+    strcat(dest, ".ll");
+    dest[strlen(dest)] = '\0';
 }

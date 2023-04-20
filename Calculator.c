@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "Structures.h"
@@ -6,19 +5,7 @@
 #include "ProcessCounter.h"
 
 
-void writeToFile(char line[]);
-
-char* getVarProcessName(){
-    char* result = (char*) calloc(257 , sizeof(char));
-    result[0] = '%';
-    result[1] = '%';
-    char snum[256];
-    snprintf(snum, sizeof(snum), "%d", getProcessCount());
-    strcat(result,snum);
-    return result;
-}
-
-
+void writeToFile(const char line[]);
 void writeAProcessToFile(char* variableName, char* processName, char* leftSide, char* rightSide);
 
 //Pretty straightforward calculate function. Take root of tree and calculate it recursively. When find any number or variable return their values.
@@ -32,6 +19,7 @@ char* calculate(const struct Node* startPoint){
         char* assignedVariableName = getVarProcessName();
         writeAProcessToFile(assignedVariableName, "and", left, right);
 
+        //"=" is a error sign, if there is a error return "="
         if(left[0] == '=' || right[0] == '=')
         {
             free(left);
@@ -55,7 +43,7 @@ char* calculate(const struct Node* startPoint){
         char* assignedVariableName = getVarProcessName();
         writeAProcessToFile(assignedVariableName, "or", left, right);
 
-
+        //"=" is a error sign, if there is a error return "="
         if(left[0] == '=' || right[0] == '=')
         {
             free(left);
@@ -77,6 +65,7 @@ char* calculate(const struct Node* startPoint){
         char* left = calculate(startPoint->Left);
         char* right = calculate(startPoint->Right);
 
+        //"=" is a error sign, if there is a error return "="
         if(left[0] == '=' || right[0] == '=')
         {
             free(left);
@@ -100,6 +89,7 @@ char* calculate(const struct Node* startPoint){
         char* left = calculate(startPoint->Left);
         char* right = calculate(startPoint->Right);
 
+        //"=" is a error sign, if there is a error return "="
         if(left[0] == '=' || right[0] == '=')
         {
             free(left);
@@ -123,6 +113,7 @@ char* calculate(const struct Node* startPoint){
         char* left = calculate(startPoint->Left);
         char* right = calculate(startPoint->Right);
 
+        //"=" is a error sign, if there is a error return "="
         if(left[0] == '=' || right[0] == '=')
         {
             free(left);
@@ -146,6 +137,7 @@ char* calculate(const struct Node* startPoint){
         char* left = calculate(startPoint->Left);
         char* right = calculate(startPoint->Right);
 
+        //"=" is a error sign, if there is a error return "="
         if(left[0] == '=' || right[0] == '=')
         {
             free(left);
@@ -169,6 +161,7 @@ char* calculate(const struct Node* startPoint){
         char* left = calculate(startPoint->Left);
         char* right = calculate(startPoint->Right);
 
+        //"=" is a error sign, if there is a error return "="
         if(left[0] == '=' || right[0] == '=')
         {
             free(left);
@@ -192,6 +185,7 @@ char* calculate(const struct Node* startPoint){
         char* left = calculate(startPoint->Left);
         char* right = calculate(startPoint->Right);
 
+        //"=" is a error sign, if there is a error return "="
         if(left[0] == '=' || right[0] == '=')
         {
             free(left);
@@ -234,6 +228,7 @@ char* calculate(const struct Node* startPoint){
             return assignedVariableName;
         }
 
+        //To implement a left rotate function we have to make more than process. Here is the complex process
         if(strcmp(startPoint->FuncName, "lr") == 0)
         {
             char* assignedVariableName = getVarProcessName();
@@ -257,6 +252,7 @@ char* calculate(const struct Node* startPoint){
             return assignedVariableName4;
         }
 
+        //To implement a Right rotate function we have to make more than process. Here is the complex process
         if(strcmp(startPoint->FuncName, "rr") == 0)
         {
             char* assignedVariableName = getVarProcessName();
@@ -289,6 +285,7 @@ char* calculate(const struct Node* startPoint){
     {
         char* value = calculate(startPoint->SingleChild);
 
+        //"=" is a error sign, if there is a error return "="
         if(value[0] == '=')
         {
             free(value);
@@ -314,7 +311,6 @@ char* calculate(const struct Node* startPoint){
 
     if(startPoint->Type == Variable)
     {
-
         if(!checkIfVariableExist(startPoint->VariableName))
         {
             char* result = (char*) calloc(10 , sizeof(char));
@@ -326,12 +322,16 @@ char* calculate(const struct Node* startPoint){
         writeToFile(result);
         writeToFile(" = ");
         writeToFile("load i32, i32*");
-        writeToFile(" %%");
+        writeToFile(" %");
         writeToFile(startPoint->VariableName);
         writeToFile("\n");
 
         return result;
     }
+
+    char* result = (char*) calloc(10 , sizeof(char));
+    result[0] = '=';
+    return result;
 }
 
 void writeAProcessToFile(char* variableName, char* processName, char* leftSide, char* rightSide)
