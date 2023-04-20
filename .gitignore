@@ -27,3 +27,5 @@ cmake-build-debug/.cmake/api/v1/reply/cmakeFiles-v1-b3fcae9599c447f07352.json
 cmake-build-debug/.cmake/api/v1/reply/cache-v2-7343d8eea52bb3320794.json
 
 CMakeLists.txt
+
+*.txt
