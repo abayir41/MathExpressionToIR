@@ -34,6 +34,7 @@ void DisposeParser(struct Node* startPoint)
          startPoint->Type == Minus |
          startPoint->Type == Multiply |
          startPoint->Type == Divide |
+         startPoint->Type == Modulo |
          startPoint->Type == TwoParameterFunction)
     {
         DisposeParser(startPoint->Left);
@@ -55,7 +56,7 @@ The BNF grammer for this algorithm
 <bitor> ::= <bitor> | <bitor> "|" <bitor>
 <bitand> ::= <sum> | <bitand> "&" <sum>
 <sum> ::= <fac> | <sum> "+" <fac> | <sum> "-" <fac>
-<fac> ::= <par> | <fac> "*" <par> | <fac> "/" <par>
+<fac> ::= <par> | <fac> "*" <par> | <fac> "/" <par> | <fac> "%" <par>
 <par> ::= <func> | "(" <bitor> ")"
 <func> ::= <number> | <var> | <funcname> "(" <bitor> "," <bitor> ")" | <funcname> "(" <bitor> ")"
 <number> ::= <digit> | <digit> <number>
@@ -124,7 +125,7 @@ struct Node* ParseSum() {
 
 struct Node* ParseFac() {
     struct Node* left = ParseParentheses();
-    while (position < tokenCount && (tokenPtr[position].type == Divide || tokenPtr[position].type == Multiply)) {
+    while (position < tokenCount && (tokenPtr[position].type == Divide || tokenPtr[position].type == Multiply || tokenPtr->type == Modulo)) {
         Token op = tokenPtr[position];
         position++;
 
