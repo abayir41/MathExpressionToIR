@@ -15,7 +15,7 @@ bool splitFromAssignSign(const char line[], char outVariablePart[], char outExpr
 FILE *outputFilePtr;
 int main(int argc, char *argv[]) {
 
-    char* filenameOriginal = "..\\da.txt";
+    char* filenameOriginal = argv[1];
     char fileNameCopy[strlen(filenameOriginal)];
     char fileNameCopy2[strlen(filenameOriginal)];
 
@@ -42,6 +42,7 @@ int main(int argc, char *argv[]) {
     fprintf(outputFilePtr, "declare i32 @printf(i8*, ...)");
     fprintf(outputFilePtr, "\n");
     fprintf(outputFilePtr, "@print.str = constant [4 x i8] c\"%%d\\0A\\00\"");
+    fprintf(outputFilePtr, "\n");
     fprintf(outputFilePtr, "\n");
     fprintf(outputFilePtr, "define i32 @main() {");
     fprintf(outputFilePtr, "\n");
@@ -78,7 +79,14 @@ int main(int argc, char *argv[]) {
             {
                 printf("Error on line %d!", currentLineNumber);
                 printf("\n");
-                continue;
+                break;
+            }
+
+            if(value[0] == '=')
+            {
+                printf("Error on line %d!", currentLineNumber);
+                printf("\n");
+                break;
             }
 
             fprintf(outputFilePtr,"call i32 (i8*, ...) @printf(i8* getelementptr ([4 x i8], [4 x i8]* @print.str, i32 0, i32 0), i32 ");
@@ -87,7 +95,7 @@ int main(int argc, char *argv[]) {
             fprintf(outputFilePtr, "\n");
             getProcessCount();
 
-            //free(value);
+            free(value);
 
         }
         else
@@ -111,6 +119,13 @@ int main(int argc, char *argv[]) {
                 continue;
             }
 
+            if(value[0] == '=')
+            {
+                printf("Error on line %d!", currentLineNumber);
+                printf("\n");
+                break;
+            }
+
             //setting variable
             setVariableValue(variablePart, value);
         }
@@ -120,7 +135,6 @@ int main(int argc, char *argv[]) {
 
     disposeVariables();
     fprintf(outputFilePtr, "ret i32 0\n");
-
     fprintf(outputFilePtr, "}");
 
     fclose(inputFilePtr);

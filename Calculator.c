@@ -32,8 +32,17 @@ char* calculate(const struct Node* startPoint){
         char* assignedVariableName = getVarProcessName();
         writeAProcessToFile(assignedVariableName, "and", left, right);
 
-        //free(left);
-        //free(right);
+        if(left[0] == '=' || right[0] == '=')
+        {
+            free(left);
+            free(right);
+            char* result = (char*) calloc(10 , sizeof(char));
+            result[0] = '=';
+            return result;
+        }
+
+        free(left);
+        free(right);
 
         return assignedVariableName;
     }
@@ -46,8 +55,19 @@ char* calculate(const struct Node* startPoint){
         char* assignedVariableName = getVarProcessName();
         writeAProcessToFile(assignedVariableName, "or", left, right);
 
-        //free(left);
-        //free(right);
+
+        if(left[0] == '=' || right[0] == '=')
+        {
+            free(left);
+            free(right);
+            char* result = (char*) calloc(10 , sizeof(char));
+            result[0] = '=';
+            return result;
+        }
+
+
+        free(left);
+        free(right);
 
         return assignedVariableName;
     }
@@ -57,11 +77,20 @@ char* calculate(const struct Node* startPoint){
         char* left = calculate(startPoint->Left);
         char* right = calculate(startPoint->Right);
 
+        if(left[0] == '=' || right[0] == '=')
+        {
+            free(left);
+            free(right);
+            char* result = (char*) calloc(10 , sizeof(char));
+            result[0] = '=';
+            return result;
+        }
+
         char* assignedVariableName = getVarProcessName();
         writeAProcessToFile(assignedVariableName, "add", left, right);
 
-        //free(left);
-        //free(right);
+        free(left);
+        free(right);
 
         return assignedVariableName;
     }
@@ -71,11 +100,20 @@ char* calculate(const struct Node* startPoint){
         char* left = calculate(startPoint->Left);
         char* right = calculate(startPoint->Right);
 
+        if(left[0] == '=' || right[0] == '=')
+        {
+            free(left);
+            free(right);
+            char* result = (char*) calloc(10 , sizeof(char));
+            result[0] = '=';
+            return result;
+        }
+
         char* assignedVariableName = getVarProcessName();
         writeAProcessToFile(assignedVariableName, "sub", left, right);
 
-        //free(left);
-        //free(right);
+        free(left);
+        free(right);
 
         return assignedVariableName;
     }
@@ -85,11 +123,20 @@ char* calculate(const struct Node* startPoint){
         char* left = calculate(startPoint->Left);
         char* right = calculate(startPoint->Right);
 
+        if(left[0] == '=' || right[0] == '=')
+        {
+            free(left);
+            free(right);
+            char* result = (char*) calloc(10 , sizeof(char));
+            result[0] = '=';
+            return result;
+        }
+
         char* assignedVariableName = getVarProcessName();
         writeAProcessToFile(assignedVariableName, "mul", left, right);
 
-        //free(left);
-        //free(right);
+        free(left);
+        free(right);
 
         return assignedVariableName;
     }
@@ -99,11 +146,20 @@ char* calculate(const struct Node* startPoint){
         char* left = calculate(startPoint->Left);
         char* right = calculate(startPoint->Right);
 
+        if(left[0] == '=' || right[0] == '=')
+        {
+            free(left);
+            free(right);
+            char* result = (char*) calloc(10 , sizeof(char));
+            result[0] = '=';
+            return result;
+        }
+
         char* assignedVariableName = getVarProcessName();
         writeAProcessToFile(assignedVariableName, "srem", left, right);
 
-        //free(left);
-        //free(right);
+        free(left);
+        free(right);
 
         return assignedVariableName;
     }
@@ -113,11 +169,20 @@ char* calculate(const struct Node* startPoint){
         char* left = calculate(startPoint->Left);
         char* right = calculate(startPoint->Right);
 
+        if(left[0] == '=' || right[0] == '=')
+        {
+            free(left);
+            free(right);
+            char* result = (char*) calloc(10 , sizeof(char));
+            result[0] = '=';
+            return result;
+        }
+
         char* assignedVariableName = getVarProcessName();
         writeAProcessToFile(assignedVariableName, "sdiv", left, right);
 
-        //free(left);
-        //free(right);
+        free(left);
+        free(right);
 
         return assignedVariableName;
     }
@@ -127,13 +192,22 @@ char* calculate(const struct Node* startPoint){
         char* left = calculate(startPoint->Left);
         char* right = calculate(startPoint->Right);
 
+        if(left[0] == '=' || right[0] == '=')
+        {
+            free(left);
+            free(right);
+            char* result = (char*) calloc(10 , sizeof(char));
+            result[0] = '=';
+            return result;
+        }
+
         if(strcmp(startPoint->FuncName, "xor") == 0)
         {
             char* assignedVariableName = getVarProcessName();
             writeAProcessToFile(assignedVariableName, "xor", left, right);
 
-            //free(left);
-            //free(right);
+            free(left);
+            free(right);
 
             return assignedVariableName;
         }
@@ -143,8 +217,8 @@ char* calculate(const struct Node* startPoint){
             char* assignedVariableName = getVarProcessName();
             writeAProcessToFile(assignedVariableName, "shl", left, right);
 
-            //free(left);
-            //free(right);
+            free(left);
+            free(right);
 
             return assignedVariableName;
         }
@@ -154,55 +228,88 @@ char* calculate(const struct Node* startPoint){
             char* assignedVariableName = getVarProcessName();
             writeAProcessToFile(assignedVariableName, "ashr", left, right);
 
-            //free(left);
-            //free(right);
+            free(left);
+            free(right);
 
             return assignedVariableName;
         }
 
         if(strcmp(startPoint->FuncName, "lr") == 0)
         {
-            //todo: implement it
             char* assignedVariableName = getVarProcessName();
-            writeAProcessToFile(assignedVariableName, "BROOOO", left, right);
+            writeAProcessToFile(assignedVariableName, "shl", left, right);
 
-            //free(left);
-            //free(right);
+            char* assignedVariableName2 = getVarProcessName();
+            writeAProcessToFile(assignedVariableName2, "sub", "64", right);
 
-            return assignedVariableName;
+            char* assignedVariableName3 = getVarProcessName();
+            writeAProcessToFile(assignedVariableName3, "ashr", left, assignedVariableName2);
+
+            char* assignedVariableName4 = getVarProcessName();
+            writeAProcessToFile(assignedVariableName4, "or", assignedVariableName, assignedVariableName3);
+
+            free(assignedVariableName);
+            free(assignedVariableName2);
+            free(assignedVariableName3);
+            free(left);
+            free(right);
+
+            return assignedVariableName4;
         }
 
         if(strcmp(startPoint->FuncName, "rr") == 0)
         {
-            //todo: implement it
             char* assignedVariableName = getVarProcessName();
-            writeAProcessToFile(assignedVariableName, "BROOOO", left, right);
+            writeAProcessToFile(assignedVariableName, "ashr", left, right);
 
-            //free(left);
-            //free(right);
+            char* assignedVariableName2 = getVarProcessName();
+            writeAProcessToFile(assignedVariableName2, "sub", "64", right);
 
-            return assignedVariableName;
+            char* assignedVariableName3 = getVarProcessName();
+            writeAProcessToFile(assignedVariableName3, "shl", left, assignedVariableName2);
+
+            char* assignedVariableName4 = getVarProcessName();
+            writeAProcessToFile(assignedVariableName4, "or", assignedVariableName, assignedVariableName3);
+
+            free(assignedVariableName);
+            free(assignedVariableName2);
+            free(assignedVariableName3);
+            free(left);
+            free(right);
+
+            return assignedVariableName4;
         }
 
-        return "error";
+        char* result = (char*) calloc(10 , sizeof(char));
+        result[0] = '=';
+        return result;
     }
 
     if (startPoint->Type == OneParameterFunction)
     {
-
         char* value = calculate(startPoint->SingleChild);
+
+        if(value[0] == '=')
+        {
+            free(value);
+            char* result = (char*) calloc(10 , sizeof(char));
+            result[0] = '=';
+            return result;
+        }
 
         char* assignedVariableName = getVarProcessName();
         writeAProcessToFile(assignedVariableName, "xor", value, "-1");
 
-        //free(value);
+        free(value);
 
         return assignedVariableName;
     }
 
     if(startPoint->Type == Number)
     {
-        return startPoint->Number;
+        char* result = (char*) calloc(257 , sizeof(char));
+        strcpy(result, startPoint->Number);
+        return result;
     }
 
     if(startPoint->Type == Variable)
@@ -210,8 +317,9 @@ char* calculate(const struct Node* startPoint){
 
         if(!checkIfVariableExist(startPoint->VariableName))
         {
-            //Throw hata
-            return "";
+            char* result = (char*) calloc(10 , sizeof(char));
+            result[0] = '=';
+            return result;
         }
 
         char* result = getVarProcessName();
